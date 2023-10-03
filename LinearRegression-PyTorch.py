@@ -5,7 +5,8 @@ import os
 
 LR = 0.01
 EPOCH = 1000
-MODEL_PATH = f'{os.getcwd()}\\linear_regression_model_exercise.pth'
+MODEL_PATH = f"{os.getcwd()}\\linear_regression_model_exercise.pth"
+
 
 def main():
     TRAINING = True
@@ -38,8 +39,8 @@ split = int(0.8 * len(y))
 train_y = X[:split]
 test_y = X[split:]
 
-print(f'Splitting X, Training data: {train_X.shape}. Testing data: {test_X.shape}.')
-print(f'Splitting Y, Training data: {train_y.shape}. Testing data: {test_y.shape}.')
+print(f"Splitting X, Training data: {train_X.shape}. Testing data: {test_X.shape}.")
+print(f"Splitting Y, Training data: {train_y.shape}. Testing data: {test_y.shape}.")
 
 
 class LinearRegression(nn.Module):
@@ -62,7 +63,6 @@ def train():
     optim = torch.optim.SGD(model.parameters(), LR)
 
     for _ in range(EPOCH):
-
         predictions = model(train_X)
 
         loss = loss_fn(predictions, train_y)
@@ -73,8 +73,8 @@ def train():
         if loss < best:
             best = loss
             torch.save(model.state_dict(), MODEL_PATH)
-    print('Best training loss: ', best)
-        
+    print("Best training loss: ", best)
+
 
 def test():
     model = LinearRegression()
@@ -88,8 +88,10 @@ def test():
         predictions = model(test_X)
         loss = loss_fn(predictions, test_y)
 
-    print('Testing loss: ', loss)
-    plot_predictions(train_X.cpu(), train_y.cpu(), test_X.cpu(), test_y.cpu(), predictions.cpu())
+    print("Testing loss: ", loss)
+    plot_predictions(
+        train_X.cpu(), train_y.cpu(), test_X.cpu(), test_y.cpu(), predictions.cpu()
+    )
 
 
 # Helper for plotting the data
@@ -113,6 +115,5 @@ def plot_predictions(train_data, train_labels, test_data, test_labels, predictio
     plt.show()
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
